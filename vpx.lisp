@@ -45,42 +45,6 @@
 
 
 #+nil
-(cffi:use-foreign-library "libwayland-client.so")
+(cffi:use-foreign-library "libvpx.so")
 
-;; example code from https://github.com/hdante/hello_wayland/helpers.c
-#+nil
-(defpar *display* (wl-display-connect (cffi:null-pointer)))
-
-;; wl-display-get-registry is an inline function WHY?
-
-#+nil
-(defpar *registry*
-    (wl-proxy-marshal-constructor *display* 
-				  +WL-DISPLAY-GET-REGISTRY+
-				  WL-REGISTRY-INTERFACE
-				  ;; NULL but i don't know how to pass that
-				  ))
-#+nil
-(wl-display-roundtrip *display*) ;; => 19
-
-#+nil
-(wl-proxy-destroy *registry*)
-
-;; image = open image.bin
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; wl_proxy_marshal_constructor ((struct wl_proxy *) wl_shm,	  ;;
-;;  WL_SHM_CREATE_POOL, &wl_shm_pool_interface, NULL, fd, size) ; ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;wl-registry-bind registry name wl-shm-interface (min version 1)
-;(wl-proxy-marshal-constructor wl_shm)
-
-;; create_memory_pool(image)
-;; create_surface
-;; create_buffer
-;; bind_buffer
-;; set_cursor_from_pool
-;; set_button_callback
-
-;; while !done
-;; (wl-display-dispatch *display*)
+;; example code from https://chromium.googlesource.com/webm/libvpx/+/master/examples/simple_decoder.c
