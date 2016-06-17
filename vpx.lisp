@@ -1,6 +1,3 @@
-;; socat "UNIX-LISTEN:/var/run/user/1000/wayland-0,reuseaddr,fork"
-
-
 (eval-when (:compile-toplevel)
   (ql:quickload :cl-autowrap))
 (defpackage :vpx
@@ -8,8 +5,8 @@
 (in-package :vpx)
 
 (defparameter *spec-path* (merge-pathnames
-		     "stage/cl-c2ffi-vpx/"
-		     (user-homedir-pathname)))
+			   "stage/cl-c2ffi-vpx/"
+			   (user-homedir-pathname)))
 (progn
   (with-open-file (s "/tmp/vpx0.h"
                      :direction :output
@@ -48,3 +45,10 @@
 (cffi:use-foreign-library "libvpx.so")
 
 ;; example code from https://chromium.googlesource.com/webm/libvpx/+/master/examples/simple_decoder.c
+;; https://github.com/webmproject/libvpx/blob/master/examples/simple_decoder.c
+
+(defparameter *fn* (merge-pathnames
+			   "stage/sb-httpd-nonblock/screen_animation.webm"
+			   (user-homedir-pathname)))
+
+(defparameter *reader* (v))
