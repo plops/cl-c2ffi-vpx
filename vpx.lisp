@@ -17,18 +17,18 @@
                      :if-exists :supersede)
     (format s "#include \"/usr/include/vpx/vpx_decoder.h\"~%"))
   (autowrap::run-check autowrap::*c2ffi-program*
-                       (autowrap::list "/tmp/usb0.h"
+                       (autowrap::list "/tmp/vpx0.h"
                                        "-D" "null"
                                        "-M" "/tmp/vpx_decoder_macros.h"
                                        "-A" "x86_64-pc-linux-gnu"))
-  (with-open-file (s "/tmp/usb1.h"
+  (with-open-file (s "/tmp/vpx1.h"
                      :direction :output
                      :if-does-not-exist :create
                      :if-exists :supersede)
     (format s "#include \"/tmp/vpx0.h\"~%")
     (format s "#include \"/tmp/vpx_decoder_macros.h\"~%")))
 
-(autowrap:c-include "/tmp/usb1.h"
+(autowrap:c-include "/tmp/vpx1.h"
                     :spec-path *spec-path*
                     :exclude-arch ("arm-pc-linux-gnu"
                                    "i386-unknown-freebsd"
@@ -39,26 +39,10 @@
                                         ;"x86_64-pc-linux-gnu"
                                    "x86_64-pc-windows-msvc"
                                    "x86_64-unknown-freebsd")
-                    :exclude-sources ("/usr/include/linux/types.h"
-                                      "/usr/include/linux/magic.h")
-                    :include-sources ("/usr/include/linux/ioctl.h")
+                    :exclude-sources ()
+                    :include-sources ()
                     :trace-c2ffi t)
 
-(autowrap:c-include "/usr/include/vpx/vpx_decoder.h"
-		    :spec-path *spec-path*
-		    :exclude-arch ("arm-pc-linux-gnu"
-				   "i386-unknown-freebsd"
-				   "i686-apple-darwin9"
-				   "i686-pc-linux-gnu"
-				   "i686-pc-windows-msvc"
-				   "x86_64-apple-darwin9"
-					;"x86_64-pc-linux-gnu"
-				   "x86_64-pc-windows-msvc"
-				   "x86_64-unknown-freebsd")
-		    :exclude-sources ("/usr/include/"
-				      "/usr/include/bits/"
-				      "/usr/include/sys/")
-		    :include-sources ())
 
 #+nil
 (cffi:use-foreign-library "libwayland-client.so")
