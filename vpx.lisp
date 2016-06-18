@@ -51,4 +51,7 @@
 			   "stage/sb-httpd-nonblock/screen_animation.webm"
 			   (user-homedir-pathname)))
 
+;; in order to decode an ivf file i need to translate the code from
+;; ivfdec.c and video_reader.c. parsing webm seems even more difficult
+
 (defparameter *reader* (v))
